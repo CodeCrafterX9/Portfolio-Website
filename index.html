@@ -419,7 +419,8 @@ D.achievements.forEach(a => {
 
 // Contact
 const cb = document.getElementById('contact-btns');
-[{icon:"lucide:mail",label:D.email,href:`mailto:${D.email}`},{icon:"lucide:phone",label:D.phone,href:`tel:${D.phone}`},{icon:"lucide:linkedin",label:"LinkedIn",href:D.linkedin},{icon:"lucide:github",label:"GitHub",href:D.github}].forEach(c=>{
+[{icon:"lucide:mail",label:D.email,href:`mailto:${D.email}`},
+ {icon:"lucide:linkedin",label:"LinkedIn",href:D.linkedin},{icon:"lucide:github",label:"GitHub",href:D.github}].forEach(c=>{
     cb.innerHTML+=`<a href="${c.href}" target="_blank" class="mag-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-[12px] font-medium transition-all duration-300" style="background:var(--surface);border:1.5px solid var(--border);color:var(--text-2);box-shadow:var(--shadow)" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-2)'"><iconify-icon icon="${c.icon}" width="14"></iconify-icon><span class="hidden sm:inline">${c.label}</span></a>`;
 });
 
