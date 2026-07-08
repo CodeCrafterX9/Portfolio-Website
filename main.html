@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prachi Sota — Data Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+    <style>
+        :root {
+            --base: #f7f5f0; --surface: #ffffff; --surface-2: #f0ede7;
+            --text: #1a1a1e; --text-2: #555558; --text-3: #8a8a90;
+            --accent: #c8553d; --accent-light: rgba(200,85,61,.07);
+            --accent-glow: rgba(200,85,61,.25); --teal: #2a9d8f;
+            --border: #e8e4de; --shadow: 0 4px 30px rgba(0,0,0,.06);
+            --shadow-lg: 0 16px 50px rgba(0,0,0,.09);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        ::selection{background:var(--accent);color:#fff}
+        ::-webkit-scrollbar{width:6px}
+        ::-webkit-scrollbar-track{background:var(--base)}
+        ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+        ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+        body{background:var(--base);color:var(--text);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+        body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+        /* Scroll Progress */
+        #scroll-prog{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9998;width:0%;transition:none}
+
+        /* Floating Shapes */
+        .shape{position:absolute;border-radius:50%;pointer-events:none;will-change:transform}
+        @keyframes drift1{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(40px,-60px) rotate(120deg)}66%{transform:translate(-30px,-100px) rotate(240deg)}}
+        @keyframes drift2{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(-50px,-40px) rotate(-120deg)}66%{transform:translate(30px,-80px) rotate(-240deg)}}
+        @keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-50px) scale(1.1)}}
+
+        /* Floating Line */
+        .fline{position:absolute;left:0;top:0;bottom:0;width:1.5px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);opacity:.2}
+        .fdot{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--accent);left:-2.75px;box-shadow:0 0 14px var(--accent-glow);animation:fdot 4s ease-in-out infinite}
+        @keyframes fdot{0%,100%{top:-4px;opacity:0}8%{opacity:1}92%{opacity:1}100%{top:calc(100% - 4px);opacity:0}}
+
+        /* Reveal */
+        @keyframes riseIn{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+        .rv{opacity:0}.rv.show{animation:riseIn .7s cubic-bezier(.22,1,.36,1) forwards}
+
+        /* 3D Card */
+        .tilt-card{transform-style:preserve-3d;will-change:transform;transition:box-shadow .4s ease}
+        .tilt-card:hover{box-shadow:var(--shadow-lg)}
+        .tilt-glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s}
+        .tilt-card:hover .tilt-glare{opacity:1}
+
+        /* Exp card border animation */
+        .exp-card{border-left:3px solid transparent;transition:border-color .8s ease}
+        .exp-card.in-view{border-left-color:var(--accent)}
+
+        /* Skill tag float */
+        .stag{transition:all .3s ease}
+        .skill-card:hover .stag{animation:stagBounce .5s ease forwards}
+        @keyframes stagBounce{0%{transform:translateY(0)}40%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+
+        /* Magnetic btn */
+        .mag-btn{transition:transform .2s ease}
+
+        /* Project img */
+        .pimg{transition:transform .8s cubic-bezier(.22,1,.36,1)}
+        .pcard:hover .pimg{transform:scale(1.08)}
+
+        /* Accordion */
+        .acc-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.22,1,.36,1)}
+        .acc-body.open{max-height:3000px}
+        .acc-chev{transition:transform .3s}.acc-chev.up{transform:rotate(180deg)}
+
+        /* Nav */
+        .nlink{position:relative}.nlink::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--accent);transition:width .3s ease}.nlink:hover::after,.nlink.act::after{width:100%}
+
+        /* Section label */
+        .slabel{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:inline-flex;align-items:center;gap:8px}
+        .slabel::before{content:'';width:20px;height:1.5px;background:var(--accent);border-radius:1px}
+
+        /* Toast */
+        .toast{position:fixed;bottom:24px;right:24px;z-index:9997;padding:14px 24px;border-radius:12px;background:var(--accent);color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all .4s ease;box-shadow:0 8px 30px rgba(200,85,61,.3)}
+        .toast.show{transform:translateY(0);opacity:1}
+
+        /* Edu card hover */
+        .edu-card{transition:all .5s cubic-bezier(.22,1,.36,1)}
+        .edu-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+        .edu-card:hover .edu-score-val{color:var(--accent)}
+        .edu-card:hover .edu-year-float{opacity:.08;transform:translateY(-8px)}
+        .edu-year-float{position:absolute;right:16px;top:16px;font-size:48px;font-weight:900;color:var(--accent);opacity:.04;transition:all .5s ease;line-height:1;pointer-events:none}
+
+        /* Achievement hover */
+        .ach-card{transition:all .4s ease}.ach-card:hover{transform:translateY(-3px) scale(1.01);box-shadow:var(--shadow-lg)}
+
+        /* Responsive adjustments */
+        @media(max-width:768px){
+            .hero-name{font-size:clamp(40px,12vw,80px)!important}
+            .edu-year-float{font-size:36px}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="scroll-prog"></div>
+
+<!-- ========== NAV ========== -->
+<nav id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-500" style="background:rgba(247,245,240,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+        <a href="#hero" class="flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold text-white" style="background:var(--accent)">PS</div>
+            <span class="text-[13px] font-semibold tracking-tight" style="color:var(--text)">Prachi Sota</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+            <a href="#about" class="nlink act text-[12px] font-medium" style="color:var(--text-2)">About</a>
+            <a href="#education" class="nlink text-[12px] font-medium" style="color:var(--text-2)">Education</a>
+            <a href="#skills" class="nlink text-[12px] font-medium" style="color:var(--text-2)">Skills</a>
+            <a href="#experience" class="nlink text-[12px] font-medium" style="color:var(--text-2)">Experience</a>
+            <a href="#projects" class="nlink text-[12px] font-medium" style="color:var(--text-2)">Projects</a>
+            <a href="#contact" class="nlink ml-2 px-4 py-1.5 text-[11px] font-semibold tracking-wide text-white rounded-lg mag-btn" style="background:var(--accent)">CONTACT</a>
+        </div>
+        <button id="mob-btn" class="md:hidden" style="color:var(--text-2)"><iconify-icon icon="lucide:menu" width="20"></iconify-icon></button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mob-menu" class="fixed inset-0 z-40 flex-col items-center justify-center gap-6" style="display:none;background:rgba(247,245,240,.97);backdrop-filter:blur(20px)">
+    <button id="mob-close" class="absolute top-5 right-6" style="color:var(--text-2)"><iconify-icon icon="lucide:x" width="22"></iconify-icon></button>
+    <a href="#about" class="mob-link text-xl font-medium" style="color:var(--text-2)">About</a>
+    <a href="#education" class="mob-link text-xl font-medium" style="color:var(--text-2)">Education</a>
+    <a href="#skills" class="mob-link text-xl font-medium" style="color:var(--text-2)">Skills</a>
+    <a href="#experience" class="mob-link text-xl font-medium" style="color:var(--text-2)">Experience</a>
+    <a href="#projects" class="mob-link text-xl font-medium" style="color:var(--text-2)">Projects</a>
+    <a href="#contact" class="mob-link text-xl font-medium" style="color:var(--text-2)">Contact</a>
+</div>
+
+<!-- ========== HERO ========== -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Floating Shapes -->
+    <div class="shape w-72 h-72 top-20 -left-20 opacity-[.06]" style="background:var(--accent);animation:drift1 25s ease-in-out infinite"></div>
+    <div class="shape w-48 h-48 top-40 right-10 opacity-[.05]" style="background:var(--teal);animation:drift2 20s ease-in-out infinite"></div>
+    <div class="shape w-32 h-32 bottom-32 left-1/3 opacity-[.04]" style="background:var(--accent);border-radius:30%;animation:drift3 18s ease-in-out infinite"></div>
+    <div class="shape w-20 h-20 top-1/3 right-1/4 opacity-[.05]" style="background:var(--teal);animation:drift1 22s ease-in-out infinite reverse"></div>
+    <div class="shape w-56 h-56 -bottom-10 -right-20 opacity-[.04]" style="background:var(--accent);animation:drift2 28s ease-in-out infinite"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl">
+        <div class="rv flex items-center justify-center gap-2 mb-8">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" style="animation:fdot 2s ease-in-out infinite"></span>
+            <span class="text-[11px] font-semibold tracking-widest uppercase" style="color:var(--text-3)">Based in New Delhi</span>
+        </div>
+        <h1 class="rv hero-name text-[clamp(48px,10vw,110px)] font-extrabold leading-[.88] tracking-tighter uppercase mb-6" style="color:var(--text)">Prachi<br><span style="color:var(--accent);opacity:.6">Sota</span></h1>
+        <p class="rv text-lg md:text-xl font-light mb-2" style="color:var(--text-2)">Data Analyst</p>
+        <p class="rv text-sm font-light max-w-md mx-auto mb-10 leading-relaxed" style="color:var(--text-3)">Working with data at Physics Wallah — SQL, Python, Airflow, Power BI, and figuring out how to make things run faster.</p>
+        <div class="rv flex items-center justify-center gap-4">
+            <a href="#projects" class="mag-btn px-7 py-3 text-[12px] font-bold tracking-widest uppercase text-white rounded-lg" style="background:var(--accent)">View Work</a>
+            <a href="#contact" class="mag-btn px-7 py-3 text-[12px] font-bold tracking-widest uppercase rounded-lg" style="color:var(--text-2);border:1.5px solid var(--border)">Contact</a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section id="about" class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-5 gap-12 md:gap-16 items-start">
+            <div class="md:col-span-2 rv">
+                <div class="relative tilt-card rounded-2xl overflow-hidden" style="box-shadow:var(--shadow)">
+                    <div class="aspect-[4/5]">
+                        <img src="https://picsum.photos/seed/prachi-warm-light/600/750.jpg" class="w-full h-full object-cover" style="filter:contrast(1.05) saturate(0.9)">
+                    </div>
+                    <div class="tilt-glare rounded-2xl"></div>
+                </div>
+            </div>
+            <div class="md:col-span-3 relative">
+                <!-- Floating Line -->
+                <div class="fline hidden md:block"><div class="fdot"></div></div>
+                <div class="rv slabel pl-4 md:pl-6">About Me</div>
+                <h2 class="rv text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-8 pl-4 md:pl-6" style="color:var(--text)">Hey, I'm Prachi.</h2>
+                <div class="space-y-4 pl-4 md:pl-6">
+                    <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I'm a Data Analyst at Physics Wallah, based in New Delhi. I work with SQL, Python, and BI tools to build reports, dashboards, and automated data workflows that support business operations across multiple verticals.</p>
+                    <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I graduated from IGDTUW in 2025 with a BTech in Information Technology. At PW, my work involves writing complex SQL queries, setting up Airflow DAGs for automated reporting, building Power BI dashboards, and helping migrate data between warehouses like Redshift and Trino.</p>
+                    <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I'm genuinely interested in how data systems work end-to-end — not just the analysis part, but how data is collected, cleaned, stored, and served. I spend my free time exploring new tools, building small projects, and learning from the community.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== EDUCATION ========== -->
+<section id="education" class="py-24 md:py-32" style="background:var(--surface)">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="rv slabel">Education</div>
+        <div class="mt-10 grid md:grid-cols-3 gap-6" id="edu-grid"></div>
+    </div>
+</section>
+
+<!-- ========== SKILLS ========== -->
+<section id="skills" class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="rv slabel">Skills</div>
+        <h2 class="rv text-3xl md:text-4xl font-bold tracking-tight mb-14" style="color:var(--text)">Tools & Technologies</h2>
+        <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+</section>
+
+<!-- ========== EXPERIENCE ========== -->
+<section id="experience" class="py-24 md:py-32" style="background:var(--surface)">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <div class="rv slabel justify-center">Career</div>
+            <h2 class="rv text-3xl md:text-4xl font-bold tracking-tight" style="color:var(--text)">Work Experience</h2>
+        </div>
+        <div id="exp-list" class="max-w-3xl mx-auto space-y-5"></div>
+    </div>
+</section>
+
+<!-- ========== PROJECTS ========== -->
+<section id="projects" class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="rv slabel">Projects</div>
+        <h2 class="rv text-3xl md:text-4xl font-bold tracking-tight mb-14" style="color:var(--text)">Featured Work</h2>
+        <div id="proj-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </div>
+</section>
+
+<!-- ========== ACHIEVEMENTS ========== -->
+<section id="achievements" class="py-24 md:py-32" style="background:var(--surface)">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <div class="rv slabel justify-center">Recognition</div>
+            <h2 class="rv text-3xl md:text-4xl font-bold tracking-tight" style="color:var(--text)">Achievements</h2>
+        </div>
+        <div id="ach-grid" class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact" class="py-24 md:py-32">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+        <div class="rv slabel justify-center">Contact</div>
+        <h2 class="rv text-3xl md:text-4xl font-bold tracking-tight mb-3" style="color:var(--text)">Get in Touch</h2>
+        <p class="rv text-sm font-light mb-10 leading-relaxed" style="color:var(--text-3)">Have a question, opportunity, or just want to say hi — feel free to reach out.</p>
+        <div id="contact-btns" class="rv flex flex-wrap items-center justify-center gap-3 mb-14"></div>
+        <div class="rv mb-14" style="height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.2"></div>
+        <form id="form" class="rv space-y-4 text-left">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="text" placeholder="Name" required class="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all duration-300" style="background:var(--surface);border:1.5px solid var(--border);color:var(--text)" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px var(--accent-light)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+                <input type="email" placeholder="Email" required class="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all duration-300" style="background:var(--surface);border:1.5px solid var(--border);color:var(--text)" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px var(--accent-light)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+            </div>
+            <textarea placeholder="Message" rows="5" required class="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all duration-300 resize-none" style="background:var(--surface);border:1.5px solid var(--border);color:var(--text)" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px var(--accent-light)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'"></textarea>
+            <button type="submit" class="mag-btn w-full py-3.5 rounded-xl text-white text-[12px] font-bold tracking-widest uppercase transition-all duration-300" style="background:var(--accent)" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10 px-6" style="border-top:1px solid var(--border)">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+            <div class="w-5 h-5 rounded-md flex items-center justify-center text-[7px] font-bold text-white" style="background:var(--accent)">PS</div>
+            <span class="text-[11px]" style="color:var(--text-3)">© 2025 Prachi Sota</span>
+        </div>
+        <div id="foot-soc" class="flex items-center gap-5"></div>
+    </div>
+</footer>
+
+<div id="toast" class="toast"><iconify-icon icon="lucide:check-circle" width="16"></iconify-icon> Message sent!</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+const D = {
+    education: [
+        { title:"BTech, Information Technology", school:"Indira Gandhi Delhi Technical University for Women", period:"2021 — 2025", score:"8.39", label:"CGPA", year:"21–25" },
+        { title:"Class XII", school:"Bharat National Public School", period:"2020 — 2021", score:"95%", label:"Percentage", year:"20–21" },
+        { title:"Class X", school:"Bharat National Public School", period:"2018 — 2019", score:"96.7%", label:"Percentage", year:"18–19", badge:"Topper" }
+    ],
+    skills: [
+        { cat:"Languages", items:["Python","SQL"] },
+        { cat:"Data Engineering", items:["Apache Airflow","DBT","PySpark","dlt"] },
+        { cat:"Warehouses", items:["Amazon Redshift","Trino","PostgreSQL","DuckDB","Phoenix"] },
+        { cat:"Cloud & Infra", items:["AWS S3","GitLab CI/CD","Git"] },
+        { cat:"Visualization", items:["Power BI","Metabase","Tableau","Looker","Excel"] },
+        { cat:"Libraries", items:["Pandas","NumPy","Scikit-learn","TensorFlow","Keras","Playwright"] }
+    ],
+    experience: [
+        { role:"Senior Data Analyst", company:"Physics Wallah", loc:"Noida", period:"May 2026 — Present", type:"Full-time",
+          desc:"Managing incentive payouts across 42+ business verticals. Building automated reporting workflows and an in-house Incentive Management Platform.",
+          points:["Managing incentive payout worth 2-3.5 Cr monthly across 42+ business verticals for PW employees, group companies, and third-party ambassadors","Coordinate with business, finance, and HR stakeholders to resolve payout discrepancies and exceptions","Automated monthly reporting for ₹1.2 Cr annual VI orders through PI OTT platform — built Apache Airflow DAG with automated email delivery, reducing Finance TAT by 1 day/month","Building in-house Incentive Management Platform to centralize policy tracking, approval workflows, and automated payout calculations"],
+          tech:["Apache Airflow","Python","SQL","AWS S3"] },
+        { role:"Data Analyst", company:"Physics Wallah", loc:"Noida", period:"Jul 2025 — May 2026", type:"Full-time",
+          desc:"Built data pipelines for SAP migration, automated incentive calculations, migrated queries between warehouses, and built Power BI dashboards.",
+          points:["Developed and maintained 8 data pipelines for PW Online & ECOM financial data for Zoho → SAP migration with reconciliation","Developed DBT models with DAG workflows for SAP Testing in Production","Reduced 36 days yearly Payroll TAT by automating ₹1.4Cr yearly incentive payout across 10+ verticals","Built end-to-end automation for PW Live Online & NEET PG ambassador sales — 3 Cr annual payout, cut 12 days yearly TAT","Migrated 30+ production SQL queries and materialized views from Redshift to Trino","Developed DBT models and Airflow DAGs for org-level orders and users materialized views","Designed Power BI dashboards integrating 7M+ monthly call records and 4M+ leads — identified 200+ hour productivity gap","Reduced out-of-policy travel bookings 52.4% → 40% by analyzing ₹10.11Cr quarterly spend; detected duplicate claims via ₹8.6Cr HR reimbursement mapping"],
+          tech:["DBT","Airflow","Redshift","Trino","Power BI","SQL","Python"] },
+        { role:"Machine Learning Intern", company:"Codealpha", loc:"Remote", period:"Nov 2024 — Dec 2024", type:"Internship",
+          desc:"Built creditworthiness scoring model and speech emotion recognition system.",
+          points:["Engineered credit scoring using KNN & Logistic Regression with GridSearchCV — 75% accuracy, 95% AUC","Feature engineering on financial data (credit score, income, DTI ratio) for interpretability","Speech emotion recognition using CNN + MFCC features — 85% accuracy","Used TensorFlow, Keras, Scikit-learn; SHAP for interpretability; Librosa for audio features"],
+          tech:["Python","Scikit-learn","TensorFlow","Keras","SHAP"] }
+    ],
+    projects: [
+        { title:"NiftyPulse — Daily ETL Pipeline", desc:"Daily ETL using Airflow to fetch NIFTY 50 data from NSE API. Extracts stock-level JSON, converts to DataFrames, splits into nifty data/stocks/metadata, cleans fields, adds ingestion timestamp, loads into PostgreSQL via SQLAlchemy.", img:"https://picsum.photos/seed/nifty-pulse-stock/800/500.jpg", tech:["Airflow","Python","Pandas","PostgreSQL","SQLAlchemy"], github:"https://github.com" },
+        { title:"Data Pipeline with dlt & DuckDB", desc:"End-to-end ETL using Python, Pandas, dlt, and DuckDB for sales CSV data. Applied validation, null handling, schema standardization. Automated table creation via dlt. SQL analytics for category, region, overall metrics.", img:"https://picsum.photos/seed/duckdb-etl-modern/800/500.jpg", tech:["Python","Pandas","dlt","DuckDB","SQL"], github:"https://github.com" }
+    ],
+    achievements: [
+        { t:"LiFT Scholar 2023 — Linux Foundation Women in Open Source", icon:"lucide:award", hl:true },
+        { t:"Winner (UI Track) — Normid 2023 Hackathon", icon:"lucide:trophy", hl:true },
+        { t:"Finalist — HP Solve 2.0 Innovation Challenge 2023", icon:"lucide:star", hl:false },
+        { t:"Enterprise Data Science Certification — IBM", icon:"lucide:badge-check", hl:false },
+        { t:"Mentee — Code in Place, Stanford University", icon:"lucide:graduation-cap", hl:true },
+        { t:"Team Lead — Microsoft Student Chapter, IGDTUW", icon:"lucide:users", hl:false },
+        { t:"100% — National Mathematics Olympiad 2018-19", icon:"lucide:calculator", hl:true },
+        { t:"School Topper Class X & XII — Academic Fee Waiver", icon:"lucide:crown", hl:true }
+    ],
+    email:"prachiwork1234@gmail.com", phone:"+919971783834",
+    linkedin:"https://linkedin.com/in/prachisota", github:"https://github.com/prachisota"
+};
+
+// ================================================================
+// RENDER
+// ================================================================
+
+// Education — 3D tilt cards
+const eg = document.getElementById('edu-grid');
+D.education.forEach((e,i) => {
+    eg.innerHTML += `
+        <div class="rv edu-card tilt-card relative rounded-2xl overflow-hidden" style="background:var(--surface);box-shadow:var(--shadow);animation-delay:${i*.1}s">
+            <div class="edu-year-float">${e.year}</div>
+            <div class="tilt-glare rounded-2xl"></div>
+            <div class="p-6 relative z-10">
+                <div class="text-[10px] font-bold tracking-widest uppercase mb-3" style="color:var(--text-3)">${e.period}</div>
+                <h3 class="text-[16px] font-semibold tracking-tight mb-1" style="color:var(--text)">${e.title}</h3>
+                <p class="text-[13px] mb-5 leading-relaxed" style="color:var(--text-3)">${e.school}</p>
+                <div class="flex items-end justify-between">
+                    <div>
+                        <div class="edu-score-val text-[28px] font-extrabold tracking-tight transition-colors duration-300" style="color:var(--text)">${e.score}</div>
+                        <div class="text-[10px] font-bold tracking-widest uppercase" style="color:var(--text-3)">${e.label}</div>
+                    </div>
+                    ${e.badge?`<span class="text-[9px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-lg" style="background:var(--accent-light);color:var(--accent)">${e.badge}</span>`:''}
+                </div>
+            </div>
+        </div>`;
+});
+
+// Skills — numbered cards with wave tags
+const sg = document.getElementById('skills-grid');
+D.skills.forEach((s,i) => {
+    const num = String(i+1).padStart(2,'0');
+    const tags = s.items.map((item,ti) => `<span class="stag inline-block px-3 py-1.5 rounded-lg text-[12px] font-medium" style="background:var(--surface);border:1px solid var(--border);color:var(--text-2);animation-delay:${ti*.05}s">${item}</span>`).join('');
+    sg.innerHTML += `
+        <div class="rv skill-card rounded-2xl p-6 relative overflow-hidden transition-all duration-400 hover:shadow-lg" style="background:var(--surface);box-shadow:var(--shadow);border:1px solid var(--border)">
+            <div class="absolute -right-4 -top-4 text-[80px] font-black leading-none pointer-events-none" style="color:var(--accent);opacity:.04">${num}</div>
+            <div class="relative z-10">
+                <div class="text-[10px] font-bold tracking-widest uppercase mb-3" style="color:var(--accent)">${s.cat}</div>
+                <div class="flex flex-wrap gap-2">${tags}</div>
+            </div>
+        </div>`;
+});
+
+// Experience — animated border + accordion
+const el = document.getElementById('exp-list');
+D.experience.forEach((e,i) => {
+    const typeStyle = e.type==='Internship' ? 'background:rgba(234,179,8,.1);color:#b45309' : `background:var(--accent-light);color:var(--accent)`;
+    const pts = e.points.map(p => `<li class="flex items-start gap-2.5 text-[13px] font-light leading-relaxed" style="color:var(--text-2)"><span class="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style="background:var(--accent)"></span>${p}</li>`).join('');
+    const tags = e.tech.map(t => `<span class="stag inline-block px-3 py-1.5 rounded-lg text-[11px] font-medium" style="background:var(--surface-2);color:var(--text-3)">${t}</span>`).join('');
+    el.innerHTML += `
+        <div class="rv exp-card rounded-2xl overflow-hidden" style="background:var(--base);box-shadow:var(--shadow)">
+            <div class="p-6 cursor-pointer select-none" onclick="togExp(${i})">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase rounded-md" style="${typeStyle}">${e.type}</span>
+                    <span class="text-[11px]" style="color:var(--text-3)">${e.period}</span>
+                </div>
+                <h3 class="text-[15px] font-semibold tracking-tight mb-0.5" style="color:var(--text)">${e.role}</h3>
+                <p class="text-[13px] mb-2" style="color:var(--text-3)">${e.company} · ${e.loc}</p>
+                <p class="text-[13px] font-light leading-relaxed mb-3" style="color:var(--text-2)">${e.desc}</p>
+                <div class="flex items-center gap-2 text-[11px]" style="color:var(--text-3)">
+                    <iconify-icon icon="lucide:chevron-down" width="13" id="chev-${i}" class="acc-chev"></iconify-icon>
+                    <span>${e.points.length} highlights</span>
+                </div>
+            </div>
+            <div class="acc-body" id="ebody-${i}">
+                <div class="px-6 pb-6 pt-3" style="border-top:1px solid var(--border)">
+                    <ul class="space-y-3 mb-5">${pts}</ul>
+                    <div class="flex flex-wrap gap-2">${tags}</div>
+                </div>
+            </div>
+        </div>`;
+});
+function togExp(i){document.getElementById(`ebody-${i}`).classList.toggle('open');document.getElementById(`chev-${i}`).classList.toggle('up')}
+
+// Projects — 3D tilt
+const pg = document.getElementById('proj-grid');
+D.projects.forEach(p => {
+    const tags = p.tech.map(t => `<span class="stag inline-block px-3 py-1.5 rounded-lg text-[11px] font-medium" style="background:var(--surface);border:1px solid var(--border);color:var(--text-3)">${t}</span>`).join('');
+    pg.innerHTML += `
+        <div class="rv pcard tilt-card rounded-2xl overflow-hidden" style="background:var(--surface);box-shadow:var(--shadow)">
+            <div class="tilt-glare rounded-2xl"></div>
+            <div class="aspect-video overflow-hidden">
+                <img src="${p.img}" class="pimg w-full h-full object-cover" style="filter:saturate(0.8)">
+            </div>
+            <div class="p-6 relative z-10">
+                <h3 class="text-[15px] font-semibold tracking-tight mb-2" style="color:var(--text)">${p.title}</h3>
+                <p class="text-[13px] font-light leading-relaxed mb-4" style="color:var(--text-2)">${p.desc}</p>
+                <div class="flex flex-wrap gap-2 mb-5">${tags}</div>
+                <a href="${p.github}" target="_blank" class="inline-flex items-center gap-1.5 text-[12px] font-medium pt-4 w-full transition-colors duration-300" style="color:var(--text-3);border-top:1px solid var(--border)" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-3)'"><iconify-icon icon="lucide:github" width="14"></iconify-icon> View Code</a>
+            </div>
+        </div>`;
+});
+
+// Achievements
+const ag = document.getElementById('ach-grid');
+D.achievements.forEach(a => {
+    const bg = a.hl ? 'var(--accent-light)' : 'var(--surface-2)';
+    const ic = a.hl ? 'var(--accent)' : 'var(--text-3)';
+    const brd = a.hl ? '1px solid rgba(200,85,61,.15)' : '1px solid var(--border)';
+    ag.innerHTML += `<div class="rv ach-card flex items-start gap-3.5 p-5 rounded-2xl" style="background:var(--surface);border:${brd};box-shadow:var(--shadow)"><div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style="background:${bg}"><iconify-icon icon="${a.icon}" width="15" style="color:${ic}"></iconify-icon></div><p class="text-[13px] font-light leading-relaxed" style="color:var(--text-2)">${a.t}</p></div>`;
+});
+
+// Contact
+const cb = document.getElementById('contact-btns');
+[{icon:"lucide:mail",label:D.email,href:`mailto:${D.email}`},{icon:"lucide:phone",label:D.phone,href:`tel:${D.phone}`},{icon:"lucide:linkedin",label:"LinkedIn",href:D.linkedin},{icon:"lucide:github",label:"GitHub",href:D.github}].forEach(c=>{
+    cb.innerHTML+=`<a href="${c.href}" target="_blank" class="mag-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-[12px] font-medium transition-all duration-300" style="background:var(--surface);border:1.5px solid var(--border);color:var(--text-2);box-shadow:var(--shadow)" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-2)'"><iconify-icon icon="${c.icon}" width="14"></iconify-icon><span class="hidden sm:inline">${c.label}</span></a>`;
+});
+
+// Footer
+const fs = document.getElementById('foot-soc');
+[{icon:"lucide:github",href:D.github},{icon:"lucide:linkedin",href:D.linkedin}].forEach(s=>{
+    fs.innerHTML+=`<a href="${s.href}" target="_blank" style="color:var(--text-3)" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-3)'"><iconify-icon icon="${s.icon}" width="16"></iconify-icon></a>`;
+});
+
+// ================================================================
+// INTERACTIONS
+// ================================================================
+
+// Scroll Progress
+const sp = document.getElementById('scroll-prog');
+window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    sp.style.width = `${(window.scrollY / h) * 100}%`;
+});
+
+// Scroll Reveal + Exp border animation
+const rvo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('show');
+            if (e.target.classList.contains('exp-card')) e.target.classList.add('in-view');
+            rvo.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.rv').forEach(el => rvo.observe(el));
+
+// 3D Tilt (desktop only)
+if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const x = e.clientX - r.left, y = e.clientY - r.top;
+            const cx = r.width / 2, cy = r.height / 2;
+            const rx = (y - cy) / cy * -6, ry = (x - cx) / cx * 6;
+            card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02,1.02,1.02)`;
+            const glare = card.querySelector('.tilt-glare');
+            if (glare) {
+                const angle = Math.atan2(y - cy, x - cx) * 180 / Math.PI;
+                glare.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0) 100%)`;
+            }
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+            const glare = card.querySelector('.tilt-glare');
+            if (glare) glare.style.background = 'transparent';
+        });
+    });
+}
+
+// Magnetic Buttons
+if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.mag-btn').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+            const r = btn.getBoundingClientRect();
+            const x = e.clientX - r.left - r.width / 2;
+            const y = e.clientY - r.top - r.height / 2;
+            btn.style.transform = `translate(${x * .2}px, ${y * .2}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0,0)';
+        });
+    });
+}
+
+// Nav active
+const secs = document.querySelectorAll('section[id]'), nls = document.querySelectorAll('.nlink');
+window.addEventListener('scroll', () => {
+    let c = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) c = s.id; });
+    nls.forEach(l => {
+        l.classList.remove('act'); l.style.color = 'var(--text-2)';
+        if (l.getAttribute('href') === '#' + c) { l.classList.add('act'); l.style.color = 'var(--text)'; }
+    });
+});
+
+// Nav hide/show
+let ls = 0; const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+    const c = window.scrollY;
+    nav.style.transform = (c > ls && c > 80) ? 'translateY(-100%)' : 'translateY(0)';
+    ls = c;
+});
+
+// Mobile Menu
+const mb = document.getElementById('mob-btn'), mm = document.getElementById('mob-menu');
+mb.addEventListener('click', () => { mm.style.display = 'flex'; });
+document.getElementById('mob-close').addEventListener('click', () => { mm.style.display = 'none'; });
+document.querySelectorAll('.mob-link').forEach(l => l.addEventListener('click', () => { mm.style.display = 'none'; }));
+mm.addEventListener('click', e => { if (e.target === mm) mm.style.display = 'none'; });
+
+// Form
+document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const t = document.getElementById('toast'); t.classList.add('show');
+    e.target.reset();
+    setTimeout(() => t.classList.remove('show'), 3000);
+});
+</script>
+</body>
+</html>
