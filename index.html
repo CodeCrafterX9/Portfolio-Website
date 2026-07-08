@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prachi Sota — Data Analyst</title>
+    <title>Prachi Sota — Analyst</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -148,7 +148,7 @@
     <div class="relative z-10 text-center px-6 max-w-4xl">
         <div class="rv flex items-center justify-center gap-2 mb-8">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" style="animation:fdot 2s ease-in-out infinite"></span>
-            <span class="text-[11px] font-semibold tracking-widest uppercase" style="color:var(--text-3)">Based in New Delhi</span>
+            <span class="text-[11px] font-semibold tracking-widest uppercase" style="color:var(--text-3)">Based in Delhi</span>
         </div>
         <h1 class="rv hero-name text-[clamp(48px,10vw,110px)] font-extrabold leading-[.88] tracking-tighter uppercase mb-6" style="color:var(--text)">Prachi<br><span style="color:var(--accent);opacity:.6">Sota</span></h1>
         <p class="rv text-lg md:text-xl font-light mb-2" style="color:var(--text-2)">Data Analyst</p>
@@ -178,8 +178,8 @@
                 <div class="rv slabel pl-4 md:pl-6">About Me</div>
                 <h2 class="rv text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-8 pl-4 md:pl-6" style="color:var(--text)">Hey, I'm Prachi.</h2>
                 <div class="space-y-4 pl-4 md:pl-6">
-                    <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I'm a Data Analyst at Physics Wallah, based in New Delhi. I work with SQL, Python, and BI tools to build reports, dashboards, and automated data workflows that support business operations across multiple verticals.</p>
-                    <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I graduated from IGDTUW in 2025 with a BTech in Information Technology. At PW, my work involves writing complex SQL queries, setting up Airflow DAGs for automated reporting, building Power BI dashboards, and helping migrate data between warehouses like Redshift and Trino.</p>
+                    <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I'm an Analyst at Physics Wallah, based in Noida I work with SQL, Python, and BI tools to build reports, dashboards, matviews, and automated data workflows that support business operations across multiple verticals.</p>
+                    <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I graduated from IGDTUW in 2025 with a BTech in Information Technology. At PW, my work involves writing complex SQL queries, setting up Airflow DAGs for automated reporting and payout calculation, building Power BI dashboards, and helping migrate data queries between warehouses like Redshift and Trino.</p>
                     <p class="rv text-[15px] font-light leading-[1.75]" style="color:var(--text-2)">I'm genuinely interested in how data systems work end-to-end — not just the analysis part, but how data is collected, cleaned, stored, and served. I spend my free time exploring new tools, building small projects, and learning from the community.</p>
                 </div>
             </div>
@@ -286,11 +286,11 @@ const D = {
         { cat:"Libraries", items:["Pandas","NumPy","Scikit-learn","TensorFlow","Keras","Playwright"] }
     ],
     experience: [
-        { role:"Senior Data Analyst", company:"Physics Wallah", loc:"Noida", period:"May 2026 — Present", type:"Full-time",
+        { role:"Senior Associate", company:"Physics Wallah", loc:"Noida", period:"May 2026 — Present", type:"Full-time",
           desc:"Managing incentive payouts across 42+ business verticals. Building automated reporting workflows and an in-house Incentive Management Platform.",
           points:["Managing incentive payout worth 2-3.5 Cr monthly across 42+ business verticals for PW employees, group companies, and third-party ambassadors","Coordinate with business, finance, and HR stakeholders to resolve payout discrepancies and exceptions","Automated monthly reporting for ₹1.2 Cr annual VI orders through PI OTT platform — built Apache Airflow DAG with automated email delivery, reducing Finance TAT by 1 day/month","Building in-house Incentive Management Platform to centralize policy tracking, approval workflows, and automated payout calculations"],
           tech:["Apache Airflow","Python","SQL","AWS S3"] },
-        { role:"Data Analyst", company:"Physics Wallah", loc:"Noida", period:"Jul 2025 — May 2026", type:"Full-time",
+        { role:"Associate", company:"Physics Wallah", loc:"Noida", period:"Jul 2025 — May 2026", type:"Full-time",
           desc:"Built data pipelines for SAP migration, automated incentive calculations, migrated queries between warehouses, and built Power BI dashboards.",
           points:["Developed and maintained 8 data pipelines for PW Online & ECOM financial data for Zoho → SAP migration with reconciliation","Developed DBT models with DAG workflows for SAP Testing in Production","Reduced 36 days yearly Payroll TAT by automating ₹1.4Cr yearly incentive payout across 10+ verticals","Built end-to-end automation for PW Live Online & NEET PG ambassador sales — 3 Cr annual payout, cut 12 days yearly TAT","Migrated 30+ production SQL queries and materialized views from Redshift to Trino","Developed DBT models and Airflow DAGs for org-level orders and users materialized views","Designed Power BI dashboards integrating 7M+ monthly call records and 4M+ leads — identified 200+ hour productivity gap","Reduced out-of-policy travel bookings 52.4% → 40% by analyzing ₹10.11Cr quarterly spend; detected duplicate claims via ₹8.6Cr HR reimbursement mapping"],
           tech:["DBT","Airflow","Redshift","Trino","Power BI","SQL","Python"] },
@@ -300,8 +300,8 @@ const D = {
           tech:["Python","Scikit-learn","TensorFlow","Keras","SHAP"] }
     ],
     projects: [
-        { title:"NiftyPulse — Daily ETL Pipeline", desc:"Daily ETL using Airflow to fetch NIFTY 50 data from NSE API. Extracts stock-level JSON, converts to DataFrames, splits into nifty data/stocks/metadata, cleans fields, adds ingestion timestamp, loads into PostgreSQL via SQLAlchemy.", img:"https://picsum.photos/seed/nifty-pulse-stock/800/500.jpg", tech:["Airflow","Python","Pandas","PostgreSQL","SQLAlchemy"], github:"https://github.com" },
-        { title:"Data Pipeline with dlt & DuckDB", desc:"End-to-end ETL using Python, Pandas, dlt, and DuckDB for sales CSV data. Applied validation, null handling, schema standardization. Automated table creation via dlt. SQL analytics for category, region, overall metrics.", img:"https://picsum.photos/seed/duckdb-etl-modern/800/500.jpg", tech:["Python","Pandas","dlt","DuckDB","SQL"], github:"https://github.com" }
+        { title:"NiftyPulse — Daily ETL Pipeline", desc:"Daily ETL using Airflow to fetch NIFTY 50 data from NSE API. Extracts stock-level JSON, converts to DataFrames, splits into nifty data/stocks/metadata, cleans fields, adds ingestion timestamp, loads into PostgreSQL via SQLAlchemy.", img:"https://picsum.photos/seed/nifty-pulse-stock/800/500.jpg", tech:["Airflow","Python","Pandas","PostgreSQL","SQLAlchemy"], github:"https://github.com/CodeCrafterX9/NiftyPulse_ETL-Pipeline-For-Market-Analysis" },
+        { title:"Data Pipeline with dlt & DuckDB", desc:"End-to-end ETL using Python, Pandas, dlt, and DuckDB for sales CSV data. Applied validation, null handling, schema standardization. Automated table creation via dlt. SQL analytics for category, region, overall metrics.", img:"https://picsum.photos/seed/duckdb-etl-modern/800/500.jpg", tech:["Python","Pandas","dlt","DuckDB","SQL"], github:"https://github.com/CodeCrafterX9/Local-Data-Engineering-Environment-with-dlt-DuckDB-Jupyter" }
     ],
     achievements: [
         { t:"LiFT Scholar 2023 — Linux Foundation Women in Open Source", icon:"lucide:award", hl:true },
@@ -314,7 +314,7 @@ const D = {
         { t:"School Topper Class X & XII — Academic Fee Waiver", icon:"lucide:crown", hl:true }
     ],
     email:"prachiwork1234@gmail.com", phone:"+919971783834",
-    linkedin:"https://linkedin.com/in/prachisota", github:"https://github.com/prachisota"
+    linkedin:"https://www.linkedin.com/in/prachi-sota/", github:"https://github.com/CodeCrafterX9,Blog : "https://dev.to/codecrafterx9"
 };
 
 // ================================================================
