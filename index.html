@@ -301,8 +301,17 @@ const D = {
     ],
     projects: [
         { title:"NiftyPulse — Daily ETL Pipeline", desc:"Daily ETL using Airflow to fetch NIFTY 50 data from NSE API. Extracts stock-level JSON, converts to DataFrames, splits into nifty data/stocks/metadata, cleans fields, adds ingestion timestamp, loads into PostgreSQL via SQLAlchemy.", img:"https://picsum.photos/seed/nifty-pulse-stock/800/500.jpg", tech:["Airflow","Python","Pandas","PostgreSQL","SQLAlchemy"], github:"https://github.com/CodeCrafterX9/NiftyPulse_ETL-Pipeline-For-Market-Analysis" },
-        { title:"Data Pipeline with dlt & DuckDB", desc:"End-to-end ETL using Python, Pandas, dlt, and DuckDB for sales CSV data. Applied validation, null handling, schema standardization. Automated table creation via dlt. SQL analytics for category, region, overall metrics.", img:"https://picsum.photos/seed/duckdb-etl-modern/800/500.jpg", tech:["Python","Pandas","dlt","DuckDB","SQL"], github:"https://github.com/CodeCrafterX9/Local-Data-Engineering-Environment-with-dlt-DuckDB-Jupyter" }
-    ],
+        { title:"Data Pipeline with dlt & DuckDB", 
+         desc:"End-to-end ETL using Python, Pandas, dlt, and DuckDB for sales CSV data. Applied validation, null handling, schema standardization. Automated table creation via dlt. SQL analytics for category, region, overall metrics.", img:"https://picsum.photos/seed/duckdb-etl-modern/800/500.jpg", 
+         tech:["Python","Pandas","dlt","DuckDB","SQL"], 
+         github:"https://github.com/CodeCrafterX9/Local-Data-Engineering-Environment-with-dlt-DuckDB-Jupyter" },
+        {
+    title: "End-to-End Analytics Platform",
+    desc: "Designed and built a production-style data lake pipeline using Python, DuckDB, Amazon S3, AWS Glue, and Athena. Ingested NYC 311 data into a Bronze layer, transformed it into analytics-ready Silver datasets, implemented pagination and chunk-based ingestion for scalable API processing, built metadata logging for pipeline observability and auditing, and enabled serverless querying through AWS Glue and Athena. The complete environment is containerized with Docker.",
+    img: "https://picsum.photos/seed/aws-data-engineering/800/500.jpg",
+    tech: ["Python","DuckDB","Amazon S3","AWS Glue","Amazon Athena","Docker","Parquet"],
+    github: "https://github.com/CodeCrafterX9/End-to-End-Analytics-Platform-with-DuckDB-Amazon-Glue-And-Amazon-S3/tree/main"
+}],
     achievements: [
         { t:"LiFT Scholar 2023 — Linux Foundation Women in Open Source", icon:"lucide:award", hl:true },
         { t:"Winner (UI Track) — Normid 2023 Hackathon", icon:"lucide:trophy", hl:true },
